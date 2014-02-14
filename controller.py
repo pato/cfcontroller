@@ -13,25 +13,25 @@ class Main:
         self.crazyflie = Crazyflie()
         cflib.crtp.init_drivers()
  
-        print("before open link")
+        print("Trying to open link")
         self.crazyflie.open_link("radio://0/10/250K")
  
         self.crazyflie.connectSetupFinished.add_callback(self.connectSetupFinished)
         
         time.sleep(10)
     
-        t1 = threading.Thread(target=self.MyThread1)
+        t1 = threading.Thread(target=self.FlyThread)
         t1.start()    
         
-        print("after link is opened")       
+        print("Link is opened")       
     
-    def MyThread1(self):             
+    def FlyThread(self):             
         roll    = 0.0
         pitch   = 0.0
         yawrate = 0
-        thrust  = 10001
+        thrust  = 10001 # minimum thrust required to power motors
         
-        print("sending data")
+        print("Sending data")
         
         while(True):
             result = self.crazyflie.commander.send_setpoint(roll, pitch, yawrate, thrust)
@@ -42,5 +42,6 @@ class Main:
         """
         Called once connection is done
         """ 
+        print("Connection is finished");
 Main()
 
