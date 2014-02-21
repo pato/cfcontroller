@@ -1,4 +1,5 @@
 import logging
+import sys
 import time 
 import cflib.crtp
 import threading
@@ -24,6 +25,7 @@ class Main:
         t1.start()    
         
         print("Link is opened")       
+
     
     def FlyThread(self):             
         roll    = 0.0
@@ -31,17 +33,18 @@ class Main:
         yawrate = 0
         thrust  = 10001 # minimum thrust required to power motors
         
-        print("Sending data")
+        print("In FlyThread")
         
-        while(True):
-            result = self.crazyflie.commander.send_setpoint(roll, pitch, yawrate, thrust)
+        #while(True):
+        for x in range(0,100):
+            result = self.crazyflie.commander.send_setpoint(roll, pitch, yawrate, thrust+x)
             time.sleep(0.1)
 
+        self.crazyflie.close_link()
 
     def connectSetupFinished(self, linkURI):
-        """
-        Called once connection is done
-        """ 
+        # Called when connection is done
         print("Connection is finished");
-Main()
+        #self.FlyThread()
 
+Main()
