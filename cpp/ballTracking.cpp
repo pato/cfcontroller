@@ -34,6 +34,15 @@ cvNamedWindow( "EdgeDetection", CV_WINDOW_AUTOSIZE );
 CvScalar hsv_min = cvScalar(150, 84, 130, 0);
 CvScalar hsv_max = cvScalar(358, 256, 255, 0);
 
+// Detect yellow
+hsv_min = cvScalar(20, 41, 133);
+hsv_max = cvScalar(40, 150, 255);
+
+//Detect blue
+hsv_min = cvScalar(100, 150, 0);
+hsv_max = cvScalar(150, 255, 255);
+
+
 //hsv_min = CV_RGB(102,102,0);
 //hsv_max = CV_RGB(255,255,0);
 
