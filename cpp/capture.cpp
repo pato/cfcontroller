@@ -9,21 +9,18 @@ using namespace std;
 using namespace cv;
 
 
-int main( int argc, const char** argv )
-{
+int main( int argc, const char** argv ){
     CvCapture* capture = 0;
     Mat frame, frameCopy, image;
 
-    capture = cvCaptureFromCAM( 0 ); //0=default, -1=any camera, 1..99=your camera
+    capture = cvCaptureFromCAM(0); //0=default, -1=any camera, 1..99=your camera
     if(!capture) cout << "No camera detected" << endl;
 
     cvNamedWindow( "result", 1 );
 
-    if( capture )
-    {
+    if( capture ){
         cout << "In capture ..." << endl;
-        for(;;)
-        {
+        for(;;){
             IplImage* iplImg = cvQueryFrame( capture );
             frame = iplImg;
             if( frame.empty() )
