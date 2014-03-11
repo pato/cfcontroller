@@ -55,6 +55,16 @@ vector<float> previousX;
 vector<float> previousY;
 vector<CvPoint> previousC;
 
+//Used for calculating FPS
+time_t start, end;
+double fps;
+double sec;
+int counter = 0;
+time(&start);
+
+CvFont font;
+cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 0.5, 0.5);
+
 while( 1 ){
     // Get one frame
     IplImage* frame = cvQueryFrame( capture );
@@ -82,12 +92,24 @@ while( 1 ){
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),3, CV_RGB(0,255,0), -1, 8, 0 );
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),cvRound(p[2]), CV_RGB(255,0,0), 3, 8, 0 );
         //cvLine( frame, cvPoint(320, 240), cvPoint(p[0],p[1]), cvScalar(255,0,0), 2, 8);
-        //previousC.push_back(cvPoint(p[0], p[1]));        
+        previousC.push_back(cvPoint(p[0], p[1]));        
     }
 
+    // Draw the previous positions
     for (int i=0; i <previousC.size(); i++){
         cvCircle( frame, previousC.at(i), 3, CV_RGB(0,255,0), 3, 8, 0);
     }
+
+    // Calculate FPS
+    time(&end);
+    counter++;
+    sec = difftime(end, start);
+    fps = counter / sec;
+    
+    char buffer[50];
+    sprintf(buffer, "FPS: %.2f", fps);
+
+    cvPutText(frame, buffer, cvPoint(10, 30), &font , cvScalar(255,255,255));
 
     cvShowImage( "Camera", frame ); // Original stream with detected ball overlay
     cvShowImage( "HSV", hsv_frame); // Original stream in the HSV color space
@@ -96,8 +118,8 @@ while( 1 ){
     cvReleaseMemStorage(&storage);
 
     // Do not release the frame!
-
     if( (cvWaitKey(10) & 255) == 27 ) break;
+
 }
 
 // Release the capture device housekeeping
