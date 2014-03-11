@@ -1,3 +1,6 @@
+Installing
+===========
+
 For future reference
 
 Installing OpenCV in linux basically consisted of combining scripts from
@@ -13,3 +16,10 @@ http://docs.opencv.org/doc/tutorials/introduction/linux_install/linux_install.ht
 As well as partially running this
 
 https://github.com/jayrambhia/Install-OpenCV
+
+Compiling
+=========
+
+Super sketch i know, but i couldnt figure out how to get it to work with real Makefiles
+
+To compile run: source Makefile
