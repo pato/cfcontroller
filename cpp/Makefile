@@ -1,4 +1,3 @@
-capture.o: capture.cpp
+all: 
+	g++ -Iusr/include/opencv2  capture.cpp $(pkg-config opencv --libs)
 
-capture: capture.o
-	
