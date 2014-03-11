@@ -13,6 +13,8 @@
 #include <time.h>
 #include <ctype.h>
 
+using namespace std;
+
 int main(int argc, char* argv[]){
 // Default capture size - 640x480
 CvSize size = cvSize(640,480);
@@ -49,6 +51,10 @@ hsv_max = cvScalar(150, 255, 255);
 IplImage * hsv_frame = cvCreateImage(size, IPL_DEPTH_8U, 3);
 IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
 
+vector<float> previousX;
+vector<float> previousY;
+vector<CvPoint> previousC;
+
 while( 1 ){
     // Get one frame
     IplImage* frame = cvQueryFrame( capture );
@@ -75,6 +81,12 @@ while( 1 ){
         printf("Ball! x=%f y=%f r=%f\n\r",p[0],p[1],p[2] );
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),3, CV_RGB(0,255,0), -1, 8, 0 );
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),cvRound(p[2]), CV_RGB(255,0,0), 3, 8, 0 );
+        //cvLine( frame, cvPoint(320, 240), cvPoint(p[0],p[1]), cvScalar(255,0,0), 2, 8);
+        //previousC.push_back(cvPoint(p[0], p[1]));        
+    }
+
+    for (int i=0; i <previousC.size(); i++){
+        cvCircle( frame, previousC.at(i), 3, CV_RGB(0,255,0), 3, 8, 0);
     }
 
     cvShowImage( "Camera", frame ); // Original stream with detected ball overlay
