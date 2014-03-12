@@ -79,6 +79,11 @@ while( 1 ){
     // Filter out colors which are out of range.
     cvInRangeS(hsv_frame, hsv_min, hsv_max, thresholded);
 
+    // Draw the previous positions
+    for (int i=0; i <previousC.size(); i++){
+        cvCircle( frame, previousC.at(i), 2, CV_RGB(255,127,0), -1, 8, 0);
+    }
+    
     // Memory for hough circles
     CvMemStorage* storage = cvCreateMemStorage(0);
     // hough detector works better with some smoothing of the image
@@ -95,10 +100,6 @@ while( 1 ){
         previousC.push_back(cvPoint(p[0], p[1]));        
     }
 
-    // Draw the previous positions
-    for (int i=0; i <previousC.size(); i++){
-        cvCircle( frame, previousC.at(i), 3, CV_RGB(0,255,0), 3, 8, 0);
-    }
 
     // Calculate FPS
     time(&end);
