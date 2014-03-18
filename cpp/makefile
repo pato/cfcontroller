@@ -10,6 +10,7 @@ ballTracking: ballTracking.cpp
 	g++ ballTracking.cpp `pkg-config --cflags --libs opencv` -o ballTracking
 ballTracking_bgrGray: ballTracking_bgrGray.cpp
 	g++ ballTracking_bgrGray.cpp `pkg-config --cflags --libs opencv` -o ballTracking_bgrGray
+
 ballTracking_ycrcbGray: ballTracking_ycrcbGray.cpp
 	g++ ballTracking_ycrcbGray.cpp `pkg-config --cflags --libs opencv` -o ballTracking_ycrcbGray
 ballTracking_ycrcb: ballTracking_ycrcb.cpp

@@ -37,16 +37,16 @@ CvScalar hsv_min = cvScalar(150, 84, 130, 0);
 CvScalar hsv_max = cvScalar(358, 256, 255, 0);
 
 // Detect yellow
-hsv_min = cvScalar(20, 41, 133);
-hsv_max = cvScalar(40, 150, 255);
+//hsv_min = cvScalar(20, 41, 133);
+//hsv_max = cvScalar(40, 150, 255);
 
-//Detect blue
-hsv_min = cvScalar(100, 150, 0);
-hsv_max = cvScalar(150, 255, 255);
+// Detect blue
+// hsv_min = cvScalar(100, 150, 0);
+// hsv_max = cvScalar(150, 255, 255);
 
-
-//hsv_min = CV_RGB(102,102,0);
-//hsv_max = CV_RGB(255,255,0);
+// Detect Pink
+hsv_min = cvScalar(100, 90, 100);
+hsv_max = cvScalar(172, 255, 255);
 
 IplImage * hsv_frame = cvCreateImage(size, IPL_DEPTH_8U, 3);
 IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
@@ -82,6 +82,8 @@ while( 1 ){
     // Draw the previous positions
     for (int i=0; i <previousC.size(); i++){
         cvCircle( frame, previousC.at(i), 2, CV_RGB(255,127,0), -1, 8, 0);
+        if (i>0)
+            cvLine( frame, previousC.at(i-1), previousC.at(i), cvScalar(255,0,0), 2, 8);
     }
     
     // Memory for hough circles
@@ -93,10 +95,10 @@ while( 1 ){
 
     for (int i = 0; i < circles->total; i++){
         float* p = (float*)cvGetSeqElem( circles, i );
-        printf("Ball! x=%f y=%f r=%f\n\r",p[0],p[1],p[2] );
+        //printf("Ball! x=%f y=%f r=%f\n\r",p[0],p[1],p[2] );
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),3, CV_RGB(0,255,0), -1, 8, 0 );
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),cvRound(p[2]), CV_RGB(255,0,0), 3, 8, 0 );
-        //cvLine( frame, cvPoint(320, 240), cvPoint(p[0],p[1]), cvScalar(255,0,0), 2, 8);
+        //cvLine( frame, previousC.at(circleIndex), cvPoint(p[0],p[1]), cvScalar(255,0,0), 2, 8);
         previousC.push_back(cvPoint(p[0], p[1]));        
     }
 
@@ -107,7 +109,7 @@ while( 1 ){
     sec = difftime(end, start);
     fps = counter / sec;
     
-    char buffer[50];
+    char buffer[10];
     sprintf(buffer, "FPS: %.2f", fps);
 
     cvPutText(frame, buffer, cvPoint(10, 30), &font , cvScalar(255,255,255));
