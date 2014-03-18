@@ -41,12 +41,12 @@ CvScalar hsv_max = cvScalar(358, 256, 255, 0);
 //hsv_max = cvScalar(40, 150, 255);
 
 // Detect blue
-hsv_min = cvScalar(100, 150, 0);
-hsv_max = cvScalar(150, 255, 255);
+// hsv_min = cvScalar(100, 150, 0);
+// hsv_max = cvScalar(150, 255, 255);
 
 // Detect Pink
 hsv_min = cvScalar(100, 90, 100);
-hsv_max = cvScalar(172, 255, 255);
+hsv_max = cvScalar(172, 255, 230);
 
 IplImage * hsv_frame = cvCreateImage(size, IPL_DEPTH_8U, 3);
 IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
@@ -109,7 +109,7 @@ while( 1 ){
     sec = difftime(end, start);
     fps = counter / sec;
     
-    char buffer[50];
+    char buffer[10];
     sprintf(buffer, "FPS: %.2f", fps);
 
     cvPutText(frame, buffer, cvPoint(10, 30), &font , cvScalar(255,255,255));
