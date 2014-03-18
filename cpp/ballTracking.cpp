@@ -37,16 +37,16 @@ CvScalar hsv_min = cvScalar(150, 84, 130, 0);
 CvScalar hsv_max = cvScalar(358, 256, 255, 0);
 
 // Detect yellow
-hsv_min = cvScalar(20, 41, 133);
-hsv_max = cvScalar(40, 150, 255);
+//hsv_min = cvScalar(20, 41, 133);
+//hsv_max = cvScalar(40, 150, 255);
 
 //Detect blue
 hsv_min = cvScalar(100, 150, 0);
 hsv_max = cvScalar(150, 255, 255);
 
-
-//hsv_min = CV_RGB(102,102,0);
-//hsv_max = CV_RGB(255,255,0);
+//Detect Pink
+hsv_min = cvScalar(140, 150, 0);
+hsv_max = cvScalar(177, 255, 255);
 
 IplImage * hsv_frame = cvCreateImage(size, IPL_DEPTH_8U, 3);
 IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
