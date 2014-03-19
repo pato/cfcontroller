@@ -1,6 +1,7 @@
 #include <opencv/cvaux.h>
 #include <opencv/highgui.h>
 #include <opencv/cxcore.h>
+#include "opencv2/opencv.hpp"
 #include <stdio.h>
 
 #include <stdio.h>
@@ -12,6 +13,7 @@
 #include <limits.h>
 #include <time.h>
 #include <ctype.h>
+
 
 using namespace std;
 
@@ -54,6 +56,7 @@ IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
 vector<float> previousX;
 vector<float> previousY;
 vector<CvPoint> previousC;
+cv::Vec4f line;
 
 //Used for calculating FPS
 time_t start, end;
@@ -61,6 +64,7 @@ double fps;
 double sec;
 int counter = 0;
 time(&start);
+
 
 CvFont font;
 cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 0.5, 0.5);
@@ -85,7 +89,12 @@ while( 1 ){
         if (i>0)
             cvLine( frame, previousC.at(i-1), previousC.at(i), cvScalar(255,0,0), 2, 8);
     }
-    
+
+    //cvFitLine(previiousC, CV_DIST_L2, 0, 0.1, 0.1, line);
+    //cv::fitLine(previousC, line, CV_DIST_L2, 0, 0.01, 0.01); 
+
+
+
     // Memory for hough circles
     CvMemStorage* storage = cvCreateMemStorage(0);
     // hough detector works better with some smoothing of the image
