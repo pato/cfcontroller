@@ -48,7 +48,7 @@ CvScalar hsv_max = cvScalar(358, 256, 255, 0);
 
 // Detect Pink
 //hsv_min = cvScalar(100, 90, 100);
-//ihsv_max = cvScalar(172, 255, 255);
+//hsv_max = cvScalar(172, 255, 255);
 
 IplImage * hsv_frame = cvCreateImage(size, IPL_DEPTH_8U, 3);
 IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
