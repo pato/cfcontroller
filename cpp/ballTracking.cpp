@@ -43,8 +43,8 @@ CvScalar hsv_max = cvScalar(358, 256, 255, 0);
 //hsv_max = cvScalar(40, 150, 255);
 
 // Detect blue
-// hsv_min = cvScalar(100, 150, 0);
-// hsv_max = cvScalar(150, 255, 255);
+//hsv_min = cvScalar(100, 150, 0);
+//hsv_max = cvScalar(150, 255, 255);
 
 // Detect Pink
 //hsv_min = cvScalar(100, 90, 100);
@@ -56,6 +56,7 @@ IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
 vector<float> previousX;
 vector<float> previousY;
 vector<CvPoint> previousC;
+std::vector<cv::Point2f> previousPoints;
 cv::Vec4f line;
 
 //Used for calculating FPS
@@ -90,8 +91,9 @@ while( 1 ){
             cvLine( frame, previousC.at(i-1), previousC.at(i), cvScalar(255,0,0), 2, 8);
     }
 
-    //cvFitLine(previiousC, CV_DIST_L2, 0, 0.1, 0.1, line);
-    //cv::fitLine(previousC, line, CV_DIST_L2, 0, 0.01, 0.01); 
+    //cvFitLine(previousC, CV_DIST_L2, 0, 0.1, 0.1, line);
+    if (previousPoints.size() > 1)
+    cv::fitLine(previousPoints, line, CV_DIST_L2, 0, 0.01, 0.01); 
 
 
 
@@ -109,6 +111,7 @@ while( 1 ){
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),cvRound(p[2]), CV_RGB(255,0,0), 3, 8, 0 );
         //cvLine( frame, previousC.at(circleIndex), cvPoint(p[0],p[1]), cvScalar(255,0,0), 2, 8);
         previousC.push_back(cvPoint(p[0], p[1]));        
+        previousPoints.push_back(cv::Point2f(p[0], p[1]));
     }
 
 
