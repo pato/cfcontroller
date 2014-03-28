@@ -85,15 +85,19 @@ while( 1 ){
     cvInRangeS(hsv_frame, hsv_min, hsv_max, thresholded);
 
     // Draw the previous positions
+    /*
     for (int i=0; i <previousC.size(); i++){
         cvCircle( frame, previousC.at(i), 2, CV_RGB(255,127,0), -1, 8, 0);
         if (i>0)
             cvLine( frame, previousC.at(i-1), previousC.at(i), cvScalar(255,0,0), 2, 8);
     }
+    */
 
-    //cvFitLine(previousC, CV_DIST_L2, 0, 0.1, 0.1, line);
-    if (previousPoints.size() > 1)
-    cv::fitLine(previousPoints, line, CV_DIST_L2, 0, 0.01, 0.01); 
+    if (previousPoints.size() > 1){
+        cv::fitLine(previousPoints, line, CV_DIST_L2, 0, 0.01, 0.01); 
+        //cv::line(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*5,line[3]+line[1]*5));
+        cvLine(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*2000,line[3]+line[1]*2000), cvScalar(255, 0,0), 2, 8);
+    }
 
 
 
