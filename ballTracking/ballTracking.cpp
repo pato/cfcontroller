@@ -1,21 +1,5 @@
-#include <opencv/cvaux.h>
-#include <opencv/highgui.h>
-#include <opencv/cxcore.h>
-#include "opencv2/opencv.hpp"
-#include <stdio.h>
+#include "ballTracking.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <math.h>
-#include <float.h>
-#include <limits.h>
-#include <time.h>
-#include <ctype.h>
-
-
-using namespace std;
 
 int main(int argc, char* argv[]){
 // Default capture size - 640x480
@@ -85,18 +69,23 @@ while( 1 ){
     cvInRangeS(hsv_frame, hsv_min, hsv_max, thresholded);
 
     // Draw the previous positions
-    /*
+    bool drawPoints = true;
+    bool connectPoints = false;
+
+    if (drawPoints){
     for (int i=0; i <previousC.size(); i++){
         cvCircle( frame, previousC.at(i), 2, CV_RGB(255,127,0), -1, 8, 0);
-        if (i>0)
+        if (connectPoints && i>0){
             cvLine( frame, previousC.at(i-1), previousC.at(i), cvScalar(255,0,0), 2, 8);
+        }
     }
-    */
+    }
+   
 
     if (previousPoints.size() > 1){
-        cv::fitLine(previousPoints, line, CV_DIST_L2, 0, 0.01, 0.01); 
+        //cv::fitLine(previousPoints, line, CV_DIST_L2, 0, 0.01, 0.01); 
         //cv::line(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*5,line[3]+line[1]*5));
-        cvLine(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*2000,line[3]+line[1]*2000), cvScalar(255, 0,0), 2, 8);
+        //cvLine(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*2000,line[3]+line[1]*2000), cvScalar(255, 0,0), 2, 8);
     }
 
 
@@ -114,8 +103,11 @@ while( 1 ){
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),3, CV_RGB(0,255,0), -1, 8, 0 );
         cvCircle( frame, cvPoint(cvRound(p[0]),cvRound(p[1])),cvRound(p[2]), CV_RGB(255,0,0), 3, 8, 0 );
         //cvLine( frame, previousC.at(circleIndex), cvPoint(p[0],p[1]), cvScalar(255,0,0), 2, 8);
+        
+        //previousPoints.push_back(cv::Point2f(p[0], p[1]));
         previousC.push_back(cvPoint(p[0], p[1]));        
-        previousPoints.push_back(cv::Point2f(p[0], p[1]));
+        previousX.push_back(p[0]);
+        previousY.push_back(p[1]);
     }
 
 
