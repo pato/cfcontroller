@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// Define the maximum amount of points
 #define  DM  30
 
 inline double pw(double x, int k) {
@@ -15,16 +16,17 @@ inline double pw(double x, int k) {
 
 /**
  * perform polynomial regression
- * n - number of points
+ * xcoords - vector of x coordinates (as doubles)
+ * ycoords - vector of y coordinates (as doubles)
  * m - degree of desired polynomial
  */
-vector<double> polyReg(vector<double> &xcoords, vector<double> &ycoords, int n, int m){
+vector<double> polyReg(vector<double> &xcoords, vector<double> &ycoords, int m){
     int    i, ij, j, k, n1, m1, m2;
     double c[DM][DM];
     double a[DM], b[DM], x[DM], xc[DM], y[DM], yx[DM];
     double p, xx, s, yc;
 
-    n = xcoords.size();
+    int n = xcoords.size();
 
     for (int p=0;p<n;p++){
         x[p] = xcoords[p];
@@ -105,12 +107,12 @@ int main(){
     vector<double> xcoords;
     vector<double> ycoords;
 
-    for (double i=0;i<3;i++){
+    for (double i=0;i<0;i++){
         xcoords.push_back(i);
-        ycoords.push_back(i*i);
+        ycoords.push_back(1 + i*i);
     }
 
-    vector<double> coefficients = polyReg(xcoords, ycoords, 2, 2);
+    vector<double> coefficients = polyReg(xcoords, ycoords, 2);
 
     for (int i=0;i<coefficients.size();i++){
         cout<< coefficients[i] << "x^" << (i) << " + ";
