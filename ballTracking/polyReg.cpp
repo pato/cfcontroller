@@ -102,7 +102,7 @@ vector<double> polyReg(vector<double> &xcoords, vector<double> &ycoords, int m){
 
     return coefficients;
 }
-
+/*
 int main(){
     vector<double> xcoords;
     vector<double> ycoords;
@@ -119,3 +119,4 @@ int main(){
     }
     cout<< "0" << endl;
 }
+*/
