@@ -37,8 +37,8 @@ CvScalar hsv_max = cvScalar(358, 256, 255, 0);
 IplImage * hsv_frame = cvCreateImage(size, IPL_DEPTH_8U, 3);
 IplImage* thresholded = cvCreateImage(size, IPL_DEPTH_8U, 1);
 
-vector<float> previousX;
-vector<float> previousY;
+vector<double> previousX;
+vector<double> previousY;
 vector<CvPoint> previousC;
 std::vector<cv::Point2f> previousPoints;
 cv::Vec4f line;
@@ -73,19 +73,26 @@ while( 1 ){
     bool connectPoints = false;
 
     if (drawPoints){
-    for (int i=0; i <previousC.size(); i++){
-        cvCircle( frame, previousC.at(i), 2, CV_RGB(255,127,0), -1, 8, 0);
-        if (connectPoints && i>0){
-            cvLine( frame, previousC.at(i-1), previousC.at(i), cvScalar(255,0,0), 2, 8);
+        for (int i=0; i <previousC.size(); i++){
+            cvCircle( frame, previousC.at(i), 2, CV_RGB(255,127,0), -1, 8, 0);
+            if (connectPoints && i>0){
+                cvLine( frame, previousC.at(i-1), previousC.at(i), cvScalar(255,0,0), 2, 8);
+            }
         }
-    }
     }
    
 
-    if (previousPoints.size() > 1){
+    if (previousC.size() > 1){
         //cv::fitLine(previousPoints, line, CV_DIST_L2, 0, 0.01, 0.01); 
         //cv::line(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*5,line[3]+line[1]*5));
         //cvLine(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*2000,line[3]+line[1]*2000), cvScalar(255, 0,0), 2, 8);
+        
+        vector<double> coefficients = polyReg(previousX, previousY, 2);
+
+        for (int i=0;i<coefficients.size();i++){
+            cout<< coefficients[i] << "x^" << (i) << " + ";
+        }
+        cout<< "0" << endl;
     }
 
 

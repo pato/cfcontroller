@@ -7,7 +7,7 @@
 using namespace std;
 
 // Define the maximum amount of points
-#define  DM  30
+#define  DM  100
 
 inline double pw(double x, int k) {
     if (x==0)  return 0;
