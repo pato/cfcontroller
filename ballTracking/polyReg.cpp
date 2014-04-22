@@ -95,7 +95,7 @@ vector<double> polyReg(vector<double> &xcoords, vector<double> &ycoords, int n, 
     vector<double> coefficients;
 
     for (i=1; i<=m1; i++){
-        coefficients.push_back(a[i]);
+        coefficients.push_back(round(a[i]*1000)/1000);
     }
 
     return coefficients;
