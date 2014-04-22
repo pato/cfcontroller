@@ -1,0 +1,33 @@
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+#define  DM  30
+
+inline double pw(double x, int k) {
+    if (x==0)  return 0;
+    else return (exp(k*log(x)));
+}
+
+vector<double> polyReg(){
+int    i, ij, j, k, n, n1, m, m1, m2;
+double c[DM][DM];
+double a[DM], b[DM], x[DM], xc[DM], y[DM], yx[DM];
+double p, xx, s, yc;
+
+}
+
+int main(){
+
+    double x[] = {0, 1, 2, 3};
+    double y[] = {0, 1, 4, 9};
+    vector<double> res = polyReg(x, y, 2);
+    
+    cout<<"Coefficients";
+    cout<<res[0];
+    cout<<res[1];
+}
