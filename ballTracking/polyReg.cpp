@@ -28,7 +28,7 @@ vector<CvPoint> getPoints(vector<double> coefficients, double count, double step
     vector<CvPoint> points;
     for (double x=0; x < count; x++){
         double y = 0;
-        for (int k=0; k<coefficients.size(); k++){
+        for (double k=0; k<coefficients.size(); k+=step){
             y+= pow(x,k);
         }
         points.push_back(cvPoint(x,y));
