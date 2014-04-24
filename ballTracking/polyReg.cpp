@@ -26,14 +26,25 @@ inline double pw(double x, int k) {
  */
 vector<CvPoint> getPoints(vector<double> coefficients, double count, double step){
     vector<CvPoint> points;
-    for (double x=0; x < count; x++){
+    for (double x=0; x < step*count; x+=step){
         double y = 0;
-        for (double k=0; k<coefficients.size(); k+=step){
-            y+= pow(x,k);
+        for (int k = 0; k<coefficients.size(); k++){
+            y+= coefficients.at(k) * pow(x,k);
         }
-        points.push_back(cvPoint(x,y));
+        points.push_back(cvPoint(x,480 - y));
     }
     return points;
+}
+
+vector<CvPoint> getSpecificPoints(vector<CvPoint> mypoints, vector<double> coefficients){
+    vector<CvPoint> points;
+    for (int i=0; i < points.size(); i++){
+        double y;
+        for (int k = 0; k<coefficients.size(); k++){
+            y+= coefficients.at(k) * pow(mypoints.at(i).x ,k);
+        }
+        points.push_back(cvPoint(mypoints.at(i).x ,480 - y));
+    }
 }
 
 /**

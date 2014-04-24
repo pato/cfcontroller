@@ -88,11 +88,19 @@ while( 1 ){
         //cvLine(frame, cv::Point(line[2],line[3]), cv::Point(line[2]+line[0]*2000,line[3]+line[1]*2000), cvScalar(255, 0,0), 2, 8);
         
         vector<double> coefficients = polyReg(previousX, previousY, 2);
+        //vector<CvPoint> points = getPoints(coefficients, 600, 1); 
+        vector<CvPoint> points = getSpecificPoints(previousC, coefficients); 
 
-        for (int i=0;i<coefficients.size();i++){
-            cout<< coefficients[i] << "x^" << (i) << " + ";
+        for (int i=0; i < points.size() - 1; i++){
+            cvLine(frame, points.at(i), points.at(i+1), cvScalar(255,0,0), 2, 8);
         }
-        cout<< "0" << endl;
+
+        if (false){
+            for (int i=0;i<coefficients.size();i++){
+                cout<< coefficients[i] << "x^" << (i) << " + ";
+            }
+            cout<< "0" << endl;
+        }
     }
 
 

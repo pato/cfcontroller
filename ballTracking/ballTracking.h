@@ -18,3 +18,4 @@ using namespace std;
 
 vector<double> polyReg(vector<double> &xcoords, vector<double> &ycoords, int m);
 vector<CvPoint> getPoints(vector<double> coefficients, double count, double step);
+vector<CvPoint> getSpecificPoints(vector<CvPoint> points, vector<double> coefficients);
