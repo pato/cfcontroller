@@ -1,8 +1,15 @@
+#include <opencv/cvaux.h>
+#include <opencv/highgui.h>
+#include <opencv/cxcore.h>
+#include "opencv2/opencv.hpp"
+
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
 #include <cmath>
 #include <vector>
+#include <ctype.h>
+#include <math.h> 
 
 using namespace std;
 
@@ -12,6 +19,21 @@ using namespace std;
 inline double pw(double x, int k) {
     if (x==0)  return 0;
     else return (exp(k*log(x)));
+}
+
+/**
+ * used to get points 
+ */
+vector<CvPoint> getPoints(vector<double> coefficients, double count, double step){
+    vector<CvPoint> points;
+    for (double x=0; x < count; x++){
+        double y = 0;
+        for (int k=0; k<coefficients.size(); k++){
+            y+= pow(x,k);
+        }
+        points.push_back(cvPoint(x,y));
+    }
+    return points;
 }
 
 /**
