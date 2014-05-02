@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{amsfonts}
+\usepackage{graphicx}
 
 \title{A vision-based approach to Quadcopter detection and trajectory interception}
 \author{Patricio Lankenau}
@@ -49,6 +50,8 @@ to convert the image to HSV, we apply a threshold to convert the desired color t
 everything else to black. This essentially outputs a binary imagine that we then feed to the
 Hough Circle Transform. This proved to be very efficient and fast. We tested recognizing a ball
 with varying amounts of noise and were constantly processing at around 25 frames per second.
+
+\includegraphics[scale=0.15]{../images/DetectingBlue.png}
 
 Our final implemention of the recognition takes a video feed from either a webcam or kinect
 and overlays circles whereever it detects a ball. We also show the intermediate steps of conerting
