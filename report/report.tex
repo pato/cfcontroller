@@ -17,6 +17,30 @@ Furthermore, we achieved the trajectory prediction by implementeing a least-squa
 
 \section{Vision-based approach to detecting a ball}
 
+Our original idea was to use a kinect to be able to detect a ball in 3D space, which would give
+us the ability to predict where the ball is within a room. However, we hit our first obstacle
+when we tried to interface with the kinect. The current state of drivers and interfaces that
+are open source and linux compatible is a mess. We experimented with NI, freenect, and openCV\@.
+And although we got it working in all three, we decided to use openCV becuase of it requires less
+dependencies and is easier to develop with.
+
+It was also at this point that we decided that we were going to have to narrow the scope of our
+research if we were to get anything done in such a short span of time. We decided to reduce the
+search space from $\mathbb{R}^3$ to $\mathbb{R}^2$, essentially operating on a 2D crossection of
+the 3D world. This simplifying assumption allows us to only worry about points in $\mathbb{R}^2$
+which makes everything else easier. Unfortunately, this decicion came at a cost: we would no
+longer be able to gather depth information on points (essentially using the kinect as a regular
+camera). 
+
+Once we were able to get a video feed from the camera, our next step was to detect the ball. Our
+first thought was to use a Hough Circle Transform, but our naive implementation was unresaonably
+slow. After consulting people well-versed in the field, they recommended that we detect the ball
+using colored blob detection instead of HCT\@. We like the color idea, but were happy with HCT so
+we decided to use color detection to filter out non-important colors in the image and then
+performing HCT on the result.
+
+Color
+
 \section{Trajectory prediction using least-squares regression}
 
 \section{Quadcopter control}
