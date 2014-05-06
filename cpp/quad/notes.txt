@@ -1,0 +1,23 @@
+Notes:
+
+To compile: Might have to export OpenCV_DIR to point to the build folder of OpenCV.
+
+Once the program starts up, the quadcopter takes off and moves up until it can be seen by the
+camera.  To exit, hit ESC on the camera window to safely land.  Ctrl-C in the terminal window to
+kill.
+
+The quadcopter moves to the center of the ball plus or minus the radius of the ball.  If the ball
+can't be found, the program remembers where the last ball position was.  If the quadcopter can't be
+found after takeoff, the hover command is sent.
+
+
+Possible problems:
+
+-If the camera's images are very blue and seem weird, uncomment the color conversion from RGB to
+ BGR and change RGB to BGR in findQuad/findBall
+ 
+-If the quadcopter can't be found, try uncommenting the alt method redirect
+ 
+-Takeoff/landing might not work
+
+-Movement can be tuned in the linear y/z assignments
